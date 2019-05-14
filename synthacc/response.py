@@ -475,10 +475,11 @@ def plot_response_spectra(response_spectra, labels=None, colors=None, styles=Non
 
         periods, responses = rs.periods, rs.get_responses(unit)
 
-        ax.plot(periods[1:-1], responses[1:-1], zorder=i*2+1, **kwargs)
-
         if rs.has_pgm():
+            ax.plot(periods[1:], responses[1:], zorder=i*2+1, **kwargs)
             ax.scatter(pgm_period, responses[0], s=widths[i]*np.pi**3, c=colors[i], zorder=i*2+2)
+        else:
+            ax.plot(periods, responses, zorder=i*2+1, **kwargs)
 
         max_response_ = max([max_response_, responses.max()])
 
