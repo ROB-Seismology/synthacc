@@ -4,6 +4,8 @@ not allowed (they only complicate things). All other types are the Python
 native ones.
 """
 
+from __future__ import absolute_import, division, print_function, unicode_literals
+
 
 import numpy as np
 
@@ -25,11 +27,11 @@ class Object(object):
         """
         """
         if attr.startswith('_'):
-            super().__setattr__(attr, val)
+            super(Object, self).__setattr__(attr, val)
         else:
             prop = getattr(type(self), attr, None)
             if prop is not None and prop.fset is not None:
-                super().__setattr__(attr, val)
+                super(Object, self).__setattr__(attr, val)
             else:
                 raise AttributeError(
                     'This object has no attribute "%s"' % attr)
