@@ -3,6 +3,8 @@ The 'space3' module. 3d Euclidean space in a right-handed Cartesian coordinate
 system.
 """
 
+from __future__ import absolute_import, division, print_function, unicode_literals
+
 
 import math
 
@@ -181,7 +183,7 @@ class Plane(Object):
     @classmethod
     def from_points(cls, p1, p2, p3, validate=True):
         """
-        
+
         """
         if validate is True:
             #TODO: add assert that points are not on one line
@@ -194,7 +196,8 @@ class Plane(Object):
         v1 = p2.vector - p1.vector
         v2 = p3.vector - p1.vector
 
-        a, b, c = v1 @ v2
+        #a, b, c = v1 @ v2
+        a, b, c = np.dot(v1, v2)
 
         d = -(a*p1.x + b*p1.y + c*p1.z)
 
@@ -505,7 +508,7 @@ class RotationMatrix(SquareMatrix):
     def __init__(self, array, validate=True):
         """
         """
-        super().__init__(array, validate=validate)
+        super(RotationMatrix, self).__init__(array, validate=validate)
 
         if validate is True:
             assert(self.order == (3, 3))
