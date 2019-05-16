@@ -6,6 +6,8 @@ ellipsoid coincides with the center of mass of the Earth. Z points to the north
 pole.
 """
 
+from __future__ import absolute_import, division, print_function, unicode_literals
+
 
 import numpy as np
 import pyproj
@@ -128,7 +130,7 @@ class Point(Object):
     def project(self, proj):
         """
         """
-        return space3.Point(*project(self.lon, self.lat, proj), self.depth)
+        return space3.Point(*project(self.lon, self.lat, proj), z=self.depth)
 
 
 class Path(Object):
