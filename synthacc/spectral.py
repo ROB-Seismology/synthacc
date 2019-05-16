@@ -2,6 +2,8 @@
 The 'spectral' module.
 """
 
+from __future__ import absolute_import, division, print_function, unicode_literals
+
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -169,7 +171,7 @@ class AccDFT(DFT):
         if validate is True:
             assert(UNITS[unit].quantity == 'acceleration')
 
-        super().__init__(frequencies, amplitudes, unit, validate)
+        super(AccDFT, self).__init__(frequencies, amplitudes, unit, validate)
 
     @classmethod
     def from_dft(cls, dft, validate=True):
