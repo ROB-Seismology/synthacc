@@ -2,6 +2,8 @@
 The 'observation' module.
 """
 
+from __future__ import absolute_import, division, print_function, unicode_literals
+
 
 import numpy as np
 
@@ -146,7 +148,7 @@ class Catalog(DataBase):
     def __init__(self, events=[], validate=True):
         """
         """
-        super().__init__(events, EventRecord, validate=validate)
+        super(Catalog, self).__init__(events, EventRecord, validate=validate)
 
     def __getitem__(self, i, validate=True):
         """
@@ -311,7 +313,7 @@ class Network(DataBase):
     def __init__(self, stations, validate=True):
         """
         """
-        super().__init__(stations, StationRecord, validate=validate)
+        super(Network, self).__init__(stations, StationRecord, validate=validate)
 
     @property
     def lons(self):
