@@ -1,9 +1,13 @@
+# -*- coding: iso-Latin-1 -*-
+
 """
 The 'earth.flat' module. A flat Earth as 3-dimensional Euclidean space in a
 right-handed Cartesian coordinate system where x is north, y is east and z is
 down (or depth). Earth's surface has z=0. The azimuth is the angle from x
 (north) to y (east).
 """
+
+from __future__ import absolute_import, division, print_function, unicode_literals
 
 
 import matplotlib.pyplot as plt
@@ -67,7 +71,7 @@ class Sites(Object):
         """
         if validate is True:
             assert(type(points) in (cls, list))
- 
+
         xs = np.zeros(len(points))
         ys = np.zeros(len(points))
         for i, p in enumerate(points):
@@ -344,7 +348,7 @@ class DiscretizedSimpleSurface(SimpleSurface):
     def __init__(self, x1, y1, x2, y2, upper_depth, lower_depth, dip, shape, validate=True):
         """
         """
-        super().__init__(x1, y1, x2, y2, upper_depth, lower_depth, dip,
+        super(DiscretizedSimpleSurface, self).__init__(x1, y1, x2, y2, upper_depth, lower_depth, dip,
             validate=validate)
 
         if validate is True:
@@ -514,7 +518,7 @@ def plot_simple_surfaces(simple_surfaces, colors=None, styles=None, widths=None,
         ax.fill(
             [ulc.y, urc.y, lrc.y, llc.y],
             [ulc.x, urc.x, lrc.x, llc.x],
-            alpha=0.5, **kwargs,
+            alpha=0.5, **kwargs
             )
 
     ax.axis('scaled')
