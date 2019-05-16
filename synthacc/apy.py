@@ -6,6 +6,13 @@ native ones.
 
 from __future__ import absolute_import, division, print_function, unicode_literals
 
+try:
+	## PY2
+	basestring
+except NameError:
+	## PY3
+	basestring = str
+
 
 import numpy as np
 
@@ -243,6 +250,6 @@ def is_string(obj, length=None):
     Check if object is string (with length).
     """
     if length is not None:
-        return type(obj) == str and len(obj) == length
+        return isinstance(obj, basestring) and len(obj) == length
     else:
-        return type(obj) == str
+        return isinstance(obj, basestring)
