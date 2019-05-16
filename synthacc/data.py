@@ -2,17 +2,20 @@
 The 'data' module.
 """
 
+from __future__ import absolute_import, division, print_function, unicode_literals
 
-from abc import ABC
+
+from abc import ABCMeta
 import random
 
 from .apy import (Object, is_pos_integer, is_string)
 
 
-class DataRecord(ABC, Object):
+class DataRecord(Object):
     """
     A data record from a database.
     """
+    __metaclass__ = ABCMeta
 
     def __init__(self, key, validate=True):
         """
@@ -30,10 +33,11 @@ class DataRecord(ABC, Object):
         return self._key
 
 
-class DataBase(ABC, Object):
+class DataBase(Object):
     """
     A database of data records.
     """
+    __metaclass__ = ABCMeta
 
     def __init__(self, records, rec_cls, validate=True):
         """
@@ -164,7 +168,7 @@ class LogicTreeLevel(Object):
                 assert(len(b) == 2)
 
         branches = [LogicTreeBranch(*b, validate=validate) for b in branches]
-    
+
         self._name = name
         self._branches = branches
 
