@@ -1,14 +1,16 @@
+# -*- coding: iso-Latin-1 -*-
+
 """
 The 'recordings' module. Z is positive up, N is positive north, E is positive
 east, R is positive from source to receiver and T is positive right of R. X and
 Y are any orthogonal horizontal components.
 """
 
+from __future__ import absolute_import, division, print_function, unicode_literals
+
 
 import datetime
 
-from bokeh.layouts import row
-from bokeh.plotting import figure, show
 import matplotlib.pyplot as plt
 import numpy as np
 from obspy import UTCDateTime as _UTCDateTime, Trace as _Trace, read as _read
@@ -250,7 +252,7 @@ class Waveform(Object):
         amplitudes = self._filter(f_type, frequency, corners, zero_phase,
             validate=validate)
 
-        wf = self.__class__(self.time_delta, amplitudes, self.start_time, 
+        wf = self.__class__(self.time_delta, amplitudes, self.start_time,
             validate=False)
 
         return wf
@@ -295,7 +297,7 @@ class Seismogram(Waveform):
     def __init__(self, time_delta, amplitudes, unit, start_time=0, validate=True):
         """
         """
-        super().__init__(time_delta, amplitudes, start_time, validate=validate)
+        super(Seismogram, self).__init__(time_delta, amplitudes, start_time, validate=validate)
 
         if validate is True:
             assert(unit in UNITS)
@@ -538,6 +540,8 @@ class Seismogram(Waveform):
     def show(self):
         """
         """
+        from bokeh.layouts import row
+        from bokeh.plotting import figure, show
         p = figure(plot_height=300)
         p.line(self.rel_times, self.amplitudes)
         show(row(p, sizing_mode='scale_width'))
@@ -553,7 +557,7 @@ class Accelerogram(Seismogram):
         if validate is True:
             assert(UNITS[unit].quantity == 'acceleration')
 
-        super().__init__(
+        super(Accelerogram, self).__init__(
             time_delta, amplitudes, unit, start_time, validate)
 
     @classmethod
@@ -590,7 +594,7 @@ class Accelerogram(Seismogram):
         """
         Discrete Fourier transform (DFT).
         """
-        return AccDFT.from_dft(super().get_dft(unit, validate))
+        return AccDFT.from_dft(super(Accelerogram, self).get_dft(unit, validate))
 
     def get_response(self, period, damping=0.05, gmt='acc', validate=True):
         """
@@ -1027,7 +1031,7 @@ def plot_seismograms(seismograms, titles=None, labels=None, colors=None, styles=
         label.set_alpha(0)
     for label in bg.get_yticklabels():
         label.set_alpha(0)
-    
+
     sharex = None
     sharey = None
     pgms = np.zeros(n)
@@ -1176,7 +1180,7 @@ def plot_recordings(recordings, labels=None, colors=None, styles=None, widths=No
         if validate is True:
             assert(type(r) is Recording)
         components_sets.add(r.components)
-    
+
     if validate is True:
         assert(len(components_sets) == 1)
 
