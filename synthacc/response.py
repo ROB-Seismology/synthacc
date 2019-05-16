@@ -1,9 +1,13 @@
+# -*- coding: iso-Latin-1 -*-
+
 """
 The 'response' module.
 """
 
+from __future__ import absolute_import, division, print_function, unicode_literals
 
-from abc import ABC, abstractmethod
+
+from abc import ABCMeta, abstractmethod
 
 import matplotlib.pyplot as plt
 import matplotlib.ticker as mpl_ticker
@@ -138,10 +142,12 @@ class ResponseSpectrum(Object):
             size, filespec)
 
 
-class ResponseCalculator(ABC, Object):
+class ResponseCalculator(Object):
     """
     Calculate response for a single degree of freedom (SDOF) oscillator.
     """
+    __metaclass__ = ABCMeta
+
 
     @abstractmethod
     def __call__(self, time_delta, accelerations, frequencies, damping, gmt, validate):
@@ -184,13 +190,13 @@ class NewmarkBetaRC(ResponseCalculator):
         """
         if validate is True:
             assert(method in ('lin', 'avg'))
-        
+
         self._a, self._b = {'lin': (1/2, 1/6), 'avg': (1/2, 1/4)}[method]
 
     def __call__(self, time_delta, accelerations, frequencies, damping=0.05, gmt=None, validate=True):
         """
         """
-        super().__call__(time_delta, accelerations, frequencies, damping, gmt,
+        super(NewmarkBetaRC, self).__call__(time_delta, accelerations, frequencies, damping, gmt,
             validate)
 
         ca = self._a * time_delta
@@ -235,7 +241,7 @@ class NigamJenningsRC(ResponseCalculator):
     def __call__(self, time_delta, accelerations, frequencies, damping=0.05, gmt=None, validate=True):
         """
         """
-        super().__call__(time_delta, accelerations, frequencies, damping, gmt,
+        super(NigamJenningsRC, self).__call__(time_delta, accelerations, frequencies, damping, gmt,
             validate)
 
         omega = 2 * np.pi * frequencies
@@ -257,7 +263,7 @@ class NigamJenningsRC(ResponseCalculator):
         rdis = np.zeros(shape)
         rvel = np.zeros(shape)
         aacc = np.zeros(shape)
-        
+
         for i in range(0, shape[0]):
             diff = accelerations[i+1] - accelerations[i]
             z_1 = f2 * diff
@@ -307,7 +313,7 @@ class SpectralRC(ResponseCalculator):
     def __call__(self, time_delta, accelerations, frequencies, damping=0.05, gmt=None, validate=True):
         """
         """
-        super().__call__(time_delta, accelerations, frequencies, damping, gmt,
+        super(SpectralRC, self).__call__(time_delta, accelerations, frequencies, damping, gmt,
             validate)
 
         if gmt is None:
@@ -325,9 +331,10 @@ class SpectralRC(ResponseCalculator):
                 time_delta, accelerations, frequencies, damping, gmt=gmt[:3])
 
 
-class PeakCalculator(ABC, Object):
+class PeakCalculator(Object):
     """
     """
+    __metaclass__ = ABCMeta
 
     @abstractmethod
     def __call__(self):
