@@ -2,6 +2,8 @@
 The 'time' module.
 """
 
+from __future__ import absolute_import, division, print_function, unicode_literals
+
 
 import datetime
 import math
@@ -54,7 +56,8 @@ class Time(Object):
                 ms = 0
                 precision = 0
             s = int(s[0])
-            self._time = datetime.datetime(*date, int(h), int(m), s, ms)
+            self._time = datetime.datetime(*date, hour=int(h), minute=int(m),
+                                            second=s, microsecond=ms)
         else:
             if precision is None:
                 precision = DEFAULT_PRECISION
@@ -208,9 +211,10 @@ class Date(Object):
     Immutable date.
     """
 
-    def __init__(self, *args, validate=True):
+    def __init__(self, *args, **kwargs):
         """
         """
+        validate = kwargs.pop('validate', True)
         if validate is True:
             assert(len(args) == 1 or len(args) == 3)
 
