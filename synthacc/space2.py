@@ -3,8 +3,9 @@ The 'space2' module. 2d Euclidean space in a right-handed Cartesian coordinate
 system.
 """
 
+from __future__ import absolute_import, division, print_function, unicode_literals
 
-from abc import ABC, abstractmethod
+
 import random
 
 from numba import jit
@@ -163,7 +164,7 @@ class DiscretizedRectangularSurface(RectangularSurface):
     def __init__(self, w, l, nw, nl, validate=True):
         """
         """
-        super().__init__(w, l, validate=validate)
+        super(DiscretizedRectangularSurface, self).__init__(w, l, validate=validate)
 
         if validate is True:
             assert(is_pos_integer(nw))
