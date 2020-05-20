@@ -1,3 +1,5 @@
+# -*- coding: iso-Latin-1 -*-
+
 """
 The 'greens_functions' module.
 """
