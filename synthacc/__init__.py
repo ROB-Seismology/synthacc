@@ -53,6 +53,12 @@ if not reloading:
 else:
 	reload(plot)
 
+## ground_models (depends on apy)
+if not reloading:
+	from . import ground_models
+else:
+	reload(ground_models)
+
 ## spectral (depends on apy, units, plot)
 if not reloading:
 	from . import spectral
