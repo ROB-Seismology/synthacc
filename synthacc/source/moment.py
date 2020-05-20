@@ -1,9 +1,11 @@
+# -*- coding: iso-Latin-1 -*-
+
 """
 The 'source.moment' module.
 """
 
 
-from abc import ABC, abstractmethod
+from abc import ABCMeta, abstractmethod
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -186,9 +188,10 @@ class MomentTensor(Object):
         return self.trace != 0
 
 
-class TimeSeries(Object, ABC):
+class TimeSeries(Object):
     """
     """
+    __metaclass__ = ABCMeta
 
     def __init__(self, time_delta, start_time=0, validate=True):
         """
