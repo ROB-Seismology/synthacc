@@ -1,0 +1,21 @@
+20
+0.05
+1.0
+7
+1.25 0.25 1.0 4.0
+2  0.
+1
+1.0e-04
+30
+35.
+0.0 0.0 4
+0
+0  0.0
+1. 35.
+0
+1.0
+i\target_uhs.tgt
+i\seed_accelerogram.acc
+o\run1.acc
+o\run1.rsp
+o\run1.unm
